@@ -7,7 +7,6 @@ _G.theme = "paradise"
 require("config.options")
 require("config.keymaps")
 require("config.lazy")
-require("config.ui")
 
 -- Prefer LSP folding if client supports it. Allows to fold comments and more
 vim.api.nvim_create_autocmd('LspAttach', {
