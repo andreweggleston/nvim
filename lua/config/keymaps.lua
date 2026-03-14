@@ -1,18 +1,44 @@
-local map = vim.keymap.set
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 
--- windows
-map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
-map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
-map('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window', remap = true })
+-- pane management
+vim.keymap.set("n", "|", "<cmd>vsplit<cr>")
+vim.keymap.set("n", "\\", "<cmd>split<cr>")
 
--- alternate commands
-map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
+-- close buffer
+vim.keymap.set("n", "<leader>c", Snacks.bufdelete.delete)
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
-map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-map('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- save and quit
+vim.keymap.set("n", "<leader>q", "<cmd>q<cr>")
+vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
+
+-- better git diagnostics
+vim.keymap.set("n", "<leader>gL", function()
+  LazyVim.lazygit({ args = { "log" }, cwd = LazyVim.root.git() })
+end, { desc = "Lazygit Log" })
+
+vim.keymap.set("n", "<leader>gl", function()
+  package.loaded.gitsigns.blame_line()
+end, { desc = "Blame Line" })
+
+-- doge replacement
+vim.keymap.set("n", "<leader>D", "<cmd>Neogen<cr>")
+
+-- moving the c mappings to C
+vim.keymap.set({ "n", "v" }, "<leader>Cf", function()
+  LazyVim.format({ force = true })
+end, { desc = "Format" })
+vim.keymap.set("n", "<leader>Cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
+vim.keymap.set("n", "<leader>;", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+
+-- remove the keymaps I don't like
+vim.keymap.del("n", "<leader>cd")
+vim.keymap.del("n", "<leader>cf")
+vim.keymap.del("n", "<leader>fn")
+vim.keymap.del("n", "<leader>ft")
+vim.keymap.del("n", "<leader>fT")
+vim.keymap.del("n", "<leader>|")
+vim.keymap.del("n", "<leader>-")
+
