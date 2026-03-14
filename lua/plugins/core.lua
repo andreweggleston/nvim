@@ -112,7 +112,7 @@ return {
   },
   -- mini.comment
   {
-    "echasnovski/mini.comment",
+    "nvim-mini/mini.comment",
     opts = {
       mappings = {
         comment_line = "<leader>/",
@@ -144,7 +144,7 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     keys = function()
       return {
         { "<leader>Cm", "<cmd>Mason<cr>", desc = "Mason" },
